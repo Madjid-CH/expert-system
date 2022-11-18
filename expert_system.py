@@ -1,33 +1,33 @@
 def forward_chaining(fact, facts, rules):
-    rules_stack = rules.copy()
-    rules_stack_2 = []
     rules_applied = []
 
     if fact in facts:
         return True, rules_applied, facts
     else:
-        for rule in rules_stack:
+        rules_stack = []
+        for rule in rules:
             if is_premise_in_facts(rule, facts):
-                if not is_consequence_in_facts(rule, facts):
-                    facts = union_consequence(facts, rule)
-                    save_rule_index(rule, rules, rules_applied)
-                    # rules_stack.pop(rules_stack.index(rule))
+                facts = apply_rule(facts, rule, rules, rules_applied)
             else:
-                rules_stack_2.append(rule)
+                rules_stack.append(rule)
 
         stop = False
         while not stop and (fact not in facts):
             stop = True
-            for rule in rules_stack_2[::-1]:
+            for rule in rules_stack[::-1]:
                 if is_premise_in_facts(rule, facts):
-                    if not is_consequence_in_facts(rule, facts):
-                        facts = union_consequence(facts, rule)
-                        save_rule_index(rule, rules, rules_applied)
-                        rules_stack_2.pop(rules_stack_2.index(rule))
-                        stop = False
+                    facts = apply_rule(facts, rule, rules, rules_applied)
+                    rules_stack.pop(rules_stack.index(rule))
+                    stop = False
 
-    print(rules_stack_2)
     return fact in facts, rules_applied, facts
+
+
+def apply_rule(facts, rule, rules, rules_applied):
+    if not is_consequence_in_facts(rule, facts):
+        facts = union_consequence(facts, rule)
+        save_rule_index(rule, rules, rules_applied)
+    return facts
 
 
 def is_premise_in_facts(rule, facts):
@@ -44,3 +44,44 @@ def save_rule_index(rule, rules, rules_applied):
 
 def union_consequence(facts, rule):
     return facts.union(rule.get(list(rule.keys())[0]))
+
+
+def backward_chaining(fact, facts, rules):
+    rules_applied = []
+
+    if fact in facts:
+        return True, rules_applied, facts
+    else:
+        rules_stack = get_backward_chain(fact, rules)
+        for rule in rules_stack[::-1]:
+            facts = apply_rule(facts, rules[rule], rules, rules_applied)
+
+        return fact in facts, rules_applied, facts
+
+
+def rule_having_fact_in_consequence(fact, rules):
+    for rule in rules:
+        if fact in consequence_of(rule):
+            return rule
+    return None
+
+
+def premise_of(rule):
+    return list(rule.keys())[0]
+
+
+def consequence_of(rule):
+    return rule.get(list(rule.keys())[0])
+
+
+def get_backward_chain(fact, rules):
+    rules_stack = []
+    rule = rule_having_fact_in_consequence(fact, rules)
+    while rule and rules.index(rule) not in rules_stack:
+        rule1 = rules.index(rule)
+        rules_stack.append(rule1)
+        for f in premise_of(rule):
+            chain = get_backward_chain(f, rules)
+            [rules_stack.append(r) for r in chain if r not in rules_stack]
+
+    return rules_stack
