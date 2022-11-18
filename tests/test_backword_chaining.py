@@ -31,24 +31,24 @@ def test_exo_1():
 
 
 def test_simple_chaining():
-    rules = [{frozenset({"A"}): {"B"}}, ]
+    rules = [{("A"): {"B"}}, ]
     assert get_backward_chain("B", rules) == [0]
     assert get_backward_chain("C", rules) == []
 
 
 def test_get_2_chaining():
-    rules = [{frozenset({"A"}): {"D"}},
-             {frozenset({"D"}): {"C"}}]
+    rules = [{("A"): {"D"}},
+             {("D"): {"C"}}]
     assert get_backward_chain("C", rules) == [1, 0]
     assert get_backward_chain("M", rules) == []
 
 
 def test_get_3_chaining():
-    rules = [{frozenset({"C"}): {"E"}},
-             {frozenset({"A"}): {"D"}},
-             {frozenset({"D"}): {"C"}},
-             {frozenset({"K"}): {"M"}},
-             {frozenset({"L"}): {"K"}},
+    rules = [{("C"): {"E"}},
+             {("A"): {"D"}},
+             {("D"): {"C"}},
+             {("K"): {"M"}},
+             {("L"): {"K"}},
              ]
     assert get_backward_chain("E", rules) == [0, 2, 1]
     assert get_backward_chain("M", rules) == [3, 4]
@@ -56,8 +56,8 @@ def test_get_3_chaining():
 
 @pytest.mark.skip(reason="i don't know how to implement this yet")
 def test_loopy_chaining():
-    rules = [{frozenset({"C"}): {"E"}},
-             {frozenset({"E"}): {"C"}},
+    rules = [{("C"): {"E"}},
+             {("E"): {"C"}},
              ]
     assert get_backward_chain("E", rules) == [0, 1]
 

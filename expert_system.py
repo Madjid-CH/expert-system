@@ -31,7 +31,7 @@ def apply_rule(facts, rule, rules, rules_applied):
 
 
 def is_premise_in_facts(rule, facts):
-    return list(rule.keys())[0].issubset(facts)
+    return set(list(rule.keys())[0]).issubset(facts)
 
 
 def is_consequence_in_facts(rule, facts):

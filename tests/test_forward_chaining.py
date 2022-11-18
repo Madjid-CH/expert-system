@@ -21,9 +21,9 @@ def test_fact_in_facts_base(fact, facts, rules, expected):
 @pytest.mark.parametrize(
     'fact, facts, rules, expected',
     (
-            ("B", {"A"}, [{frozenset(["A"]): {"B"}}], (True, [0], {"A", "B"})),
-            ("C", {"A", "B"}, [{frozenset({"A", "B"}): {"C"}}], (True, [0], {"A", "B", "C"})),
-            ("D", {"A", "B"}, [{frozenset({"A", "B"}): {"C"}}], (False, [0], {"A", "B", "C"})),
+            ("B", {"A"}, [{("A"): {"B"}}], (True, [0], {"A", "B"})),
+            ("C", {"A", "B"}, [{("A", "B"): {"C"}}], (True, [0], {"A", "B", "C"})),
+            ("D", {"A", "B"}, [{("A", "B"): {"C"}}], (False, [0], {"A", "B", "C"})),
     )
 )
 def test_one_step(fact, facts, rules, expected):
