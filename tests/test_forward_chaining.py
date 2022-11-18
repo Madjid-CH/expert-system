@@ -73,12 +73,12 @@ def test_loop_in_rules():
 
 
 def test_exo_1(setup_exo_1):
-    facts, rules = setup_exo_1
-    assert forward_chaining("C", facts, rules) == \
+    fact, facts, rules = setup_exo_1
+    assert forward_chaining(fact, facts, rules) == \
            (True, [4, 2, 1, 0], {'E', 'F', 'D', 'A', 'C', 'B'})
 
 
 def test_exo_2(setup_exo_2):
-    facts , rules = setup_exo_2
-    assert forward_chaining("H", facts, rules) == \
+    fact, facts , rules = setup_exo_2
+    assert forward_chaining(fact, facts, rules) == \
            (True, [3, 6, 7, 5, 4, 0], {'E', 'C', 'B', 'F', 'D', 'X', 'A', 'H'})
