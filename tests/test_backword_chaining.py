@@ -1,6 +1,6 @@
 import pytest
 
-from expert_system import backward_chaining, get_backward_chain, rules_that_have_fact_in_premise, remove_the_rule_of
+from expert_system import *
 
 
 def test_empty_facts_base():
