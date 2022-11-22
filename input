@@ -1,0 +1,14 @@
+BASE DE FAITS:
+{ B, C }
+BASE DE RÈGLES:
+1 : SI ( D ET B ET E )  ALORS ( F )
+2 : SI ( G ET D )       ALORS ( A )
+3 : SI ( C ET F )       ALORS ( A )
+4 : SI ( B )              ALORS ( X )
+5 : SI ( D )              ALORS ( E )
+6 : SI ( X ET A )       ALORS ( H )
+7 : SI ( C )              ALORS ( D )
+8 : SI ( X ET C )       ALORS ( A )
+9 : SI ( X ET B )       ALORS ( D )
+DEMONTRER:
+G

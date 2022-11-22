@@ -21,7 +21,7 @@ def test_fact_in_facts_base(fact, facts, rules, expected):
 @pytest.mark.parametrize(
     'fact, facts, rules, expected',
     (
-            ("B", {"A"}, [{("A"): {"B"}}], (True, [0], {"A", "B"})),
+            ("B", {"A"}, [{"A": {"B"}}], (True, [0], {"A", "B"})),
             ("C", {"A", "B"}, [{("A", "B"): {"C"}}], (True, [0], {"A", "B", "C"})),
             ("D", {"A", "B"}, [{("A", "B"): {"C"}}], (False, [0], {"A", "B", "C"})),
     )
@@ -79,6 +79,6 @@ def test_exo_1(setup_exo_1):
 
 
 def test_exo_2(setup_exo_2):
-    fact, facts , rules = setup_exo_2
+    fact, facts, rules = setup_exo_2
     assert forward_chaining(fact, facts, rules) == \
            (True, [3, 6, 7, 5, 4, 0], {'E', 'C', 'B', 'F', 'D', 'X', 'A', 'H'})
