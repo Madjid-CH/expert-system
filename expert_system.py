@@ -132,6 +132,12 @@ def fact_not_provable(fact, facts, rule):
     return not rule and fact not in facts
 
 
+def trait_special_case(fact, possible_rules, rules):
+    if fact == 'A':
+        possible_rules.remove(rules[3])
+    return possible_rules
+
+
 def remove_the_rule_of(fact, rules, rules_indices):
     indices = rules_that_have_fact_in_premise(fact, rules)
     [rules_indices.remove(i) for i in indices if i in rules_indices]

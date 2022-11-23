@@ -2,7 +2,7 @@ from parse import *
 
 
 def test_parse_input():
-    fact, facts, rules = parse_input('../input')
+    fact, facts, rules = parse_input('../input2')
     assert fact == 'H'
     assert facts == {'C', 'B'}
     assert rules == [{('D', 'B', 'E'): {'F'}},
